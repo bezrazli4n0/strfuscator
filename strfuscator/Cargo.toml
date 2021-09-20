@@ -1,0 +1,22 @@
+[package]
+name = "strfuscator"
+version = "0.1.0"
+edition = "2018"
+authors = [ "bezrazli4n0" ]
+license = "MIT"
+repository = "https://github.com/bezrazli4n0/strfuscator"
+description = "Compile-time easy to use string encoder"
+keywords = [ "encode", "string", "compile", "decode", "encrypt", "xor" ]
+readme = "README.md"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+proc-macro = true
+
+[features]
+xor = [ "proc-macro2" ]
+
+[dependencies]
+base64 = { version = "0.13.0", optional = true }
+proc-macro2 = { version = "1.0.29", optional = true }
+quote = "1.0.9"

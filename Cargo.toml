@@ -1,0 +1,7 @@
+[workspace]
+
+members = [
+    "strfuscator",
+    "examples/base64-example",
+    "examples/xor-example"
+]
