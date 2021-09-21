@@ -1,5 +1,8 @@
-use strfuscator::obfuscate;
+use strfuscator::obfuscate_xor;
 
 fn main() {
-    println!("Your magic string: {}", obfuscate!("Hello, World!", 123));
+    println!(
+        "Your magic string: {}",
+        obfuscate_xor!("Hello, World!", 123)
+    );
 }

@@ -12,11 +12,11 @@ use proc_macro2::Literal;
 /// # Example
 /// ```
 /// // Remember to add base64 crate as dependency to your project
-/// let result = obfuscate!("Hello, World!");
+/// let result = obfuscate_base64!("Hello, World!");
 /// ```
 #[proc_macro]
 #[cfg(feature = "base64")]
-pub fn obfuscate(tokens: TokenStream) -> TokenStream {
+pub fn obfuscate_base64(tokens: TokenStream) -> TokenStream {
     // Obtain string literal(with quotes)
     let mut literal_string = String::from("");
     for token in tokens {
@@ -47,11 +47,11 @@ pub fn obfuscate(tokens: TokenStream) -> TokenStream {
 /// # Example
 /// ```
 /// // Remember to add XOR value as second parameter
-/// let result = obfuscate!("Hello, World!", 123);
+/// let result = obfuscate_xor!("Hello, World!", 123);
 /// ```
 #[proc_macro]
 #[cfg(feature = "xor")]
-pub fn obfuscate(tokens: TokenStream) -> TokenStream {
+pub fn obfuscate_xor(tokens: TokenStream) -> TokenStream {
     let mut tokens_iter = tokens.into_iter();
 
     // Obtain string literal(with quotes)
