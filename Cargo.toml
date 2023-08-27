@@ -1,5 +1,5 @@
 [workspace]
-
+resolver = "2"
 members = [
     "strfuscator",
     "examples/base64-example",

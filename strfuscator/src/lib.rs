@@ -1,3 +1,6 @@
+#[cfg(feature = "base64")]
+extern crate base64;
+
 use proc_macro::TokenStream;
 use quote::quote;
 
@@ -17,26 +20,30 @@ use proc_macro2::Literal;
 #[proc_macro]
 #[cfg(feature = "base64")]
 pub fn obfuscate_base64(tokens: TokenStream) -> TokenStream {
+    use base64::Engine as _;
     // Obtain string literal(with quotes)
-    let mut literal_string = String::from("");
+    let mut literal_string = String::new();
     for token in tokens {
-        let parsed_literal = match token {
-            TokenTree::Literal(l) => l.to_string(),
-            _ => "".to_string(),
+        let TokenTree::Literal(literal) = token else {
+            continue;
         };
+        let parsed_literal = literal.to_string();
 
         literal_string.push_str(&parsed_literal);
     }
 
     // Exclude quotes from string literal range
-    let string_data = String::from(&literal_string[1..literal_string.len() - 1]);
+    let string_data = &literal_string[1..literal_string.len() - 1];
 
     // Perform encoding
-    let encoded = base64::encode(string_data);
+    let encoded = base64::engine::general_purpose::STANDARD.encode(string_data);
 
     let result = quote! {
-        // This part of code will be used to perform runtime decoding
-        String::from_utf8(base64::decode(#encoded).unwrap()).unwrap()
+        {
+            use base64::Engine as _;
+            // This part of code will be used to perform runtime decoding
+            String::from_utf8(base64::engine::general_purpose::STANDARD.decode(#encoded).unwrap()).unwrap()
+        }
     };
 
     result.into()
@@ -69,7 +76,7 @@ pub fn obfuscate_xor(tokens: TokenStream) -> TokenStream {
         .unwrap();
 
     // Exclude quotes from string literal range
-    let string_data = String::from(&literal_string[1..literal_string.len() - 1]);
+    let string_data = &literal_string[1..literal_string.len() - 1];
 
     // Apply logical XOR to every character
     let encoded: Vec<u8> = string_data.as_bytes().iter().map(|c| c ^ key).collect();
