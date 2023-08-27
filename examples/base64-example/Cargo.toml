@@ -7,4 +7,4 @@ edition = "2018"
 
 [dependencies]
 strfuscator = { path = "../../strfuscator", features = [ "base64" ] }
-base64 = "0.13.0"
+base64 = "0.21.0"

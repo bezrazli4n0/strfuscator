@@ -1,3 +1,6 @@
+#[cfg(feature = "base64")]
+extern crate base64;
+
 use proc_macro::TokenStream;
 use quote::quote;
 

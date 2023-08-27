@@ -8,7 +8,6 @@ repository = "https://github.com/bezrazli4n0/strfuscator"
 description = "Compile-time easy to use string encoder"
 keywords = [ "encode", "string", "compile", "decode", "encrypt", "xor" ]
 readme = "README.md"
-resolver = "2"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [lib]
